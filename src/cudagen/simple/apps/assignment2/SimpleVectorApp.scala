@@ -6,6 +6,8 @@ object SimpleVectorAppRunner extends SimpleVectorApplicationRunner with SimpleVe
 
 trait SimpleVectorApp extends SimpleVectorApplication {
 
+  ppl.delite.framework.Config.generateCUDA = true
+
   def main() {
     val x = Vector[Int](100) + 1
     val y = Vector[Int](100) + 2
