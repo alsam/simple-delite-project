@@ -2,11 +2,16 @@ package ppl.dsl.assignment2
 
 import java.io.{BufferedWriter, FileWriter}
 import scala.virtualization.lms.common._
-import ppl.delite.framework.{Config, DeliteApplication}
+//import ppl.delite.framework.{Config, DeliteApplication}
+import ppl.delite.framework.{Config}
+import my.delite.framework.{MyDeliteApplication}
 import scala.tools.nsc.io._
-import ppl.delite.framework.codegen.Target
-import ppl.delite.framework.codegen.scala.TargetScala
-import ppl.delite.framework.codegen.cuda.TargetCuda
+//import ppl.delite.framework.codegen.Target
+import my.delite.framework.codegen.MyTarget
+//import ppl.delite.framework.codegen.scala.TargetScala
+//import ppl.delite.framework.codegen.cuda.TargetCuda
+import my.delite.framework.codegen.scala.MyTargetScala
+import my.delite.framework.codegen.cuda.MyTargetCuda
 import ppl.delite.framework.ops._
 import ppl.delite.framework.datastructures._
 import ppl.delite.framework.codegen.delite.overrides._
@@ -68,12 +73,12 @@ trait SimpleVectorCompiler extends SimpleVector with RangeOps {
 }
 
 trait SimpleVectorExp extends SimpleVectorCompiler with SimpleVectorScalaOpsPkgExp with VectorOpsExp with VectorImplOpsStandard with DeliteOpsExp with DeliteAllOverridesExp {
-  this: DeliteApplication with SimpleVectorApplication =>
+  this: MyDeliteApplication with SimpleVectorApplication =>
 
-  def getCodeGenPkg(t: Target{val IR: SimpleVectorExp.this.type}) : GenericFatCodegen{val IR: SimpleVectorExp.this.type} = {
+  def getCodeGenPkg(t: MyTarget{val IR: SimpleVectorExp.this.type}) : GenericFatCodegen{val IR: SimpleVectorExp.this.type} = {
     t match {
-      case _:TargetScala => new SimpleVectorCodegenScala{val IR: SimpleVectorExp.this.type = SimpleVectorExp.this}
-      case _:TargetCuda => new SimpleVectorCodegenCuda{val IR: SimpleVectorExp.this.type = SimpleVectorExp.this}
+      case _:MyTargetScala => new SimpleVectorCodegenScala{val IR: SimpleVectorExp.this.type = SimpleVectorExp.this}
+      case _:MyTargetCuda => new SimpleVectorCodegenCuda{val IR: SimpleVectorExp.this.type = SimpleVectorExp.this}
       case _ => throw new RuntimeException("simple vector does not support this target")
     }
   }
@@ -90,11 +95,11 @@ trait SimpleVectorApplication extends SimpleVector with SimpleVectorLift {
 }
 
 //the runner for SimpleVector applications
-trait SimpleVectorApplicationRunner extends SimpleVectorApplication with DeliteApplication with SimpleVectorExp
+trait SimpleVectorApplicationRunner extends SimpleVectorApplication with MyDeliteApplication with SimpleVectorExp
 
 
 trait SimpleVectorCodegenBase extends GenericFatCodegen {
-  val IR: DeliteApplication with SimpleVectorExp
+  val IR: MyDeliteApplication with SimpleVectorExp
   override def initialDefs = IR.deliteGenerator.availableDefs
   
 }
@@ -102,7 +107,7 @@ trait SimpleVectorCodegenBase extends GenericFatCodegen {
 trait SimpleVectorCodegenScala extends SimpleVectorCodegenBase with SimpleVectorScalaCodeGenPkg
   with ScalaGenDeliteOps /*with ScalaGenDeliteCollectionOps*/ with DeliteScalaGenAllOverrides {
 
-  val IR: DeliteApplication with SimpleVectorExp
+  val IR: MyDeliteApplication with SimpleVectorExp
 }
 
 // CLikeGenDeliteStruct
@@ -112,11 +117,11 @@ trait SimpleVectorCodegenScala extends SimpleVectorCodegenBase with SimpleVector
 trait SimpleVectorCodegenCuda extends SimpleVectorCodegenBase with SimpleVectorCudaCodeGenPkg
   with CudaGenDeliteOps /*with DeliteCudaGenAllOverrides*/ {
 
-  val IR: DeliteApplication with SimpleVectorExp
+  val IR: MyDeliteApplication with SimpleVectorExp
 }
 
 trait SimpleVectorCodegenC extends SimpleVectorCodegenBase with SimpleVectorCCodeGenPkg
   with CGenDeliteOps with DeliteCGenAllOverrides {
 
-  val IR: DeliteApplication with SimpleVectorExp
+  val IR: MyDeliteApplication with SimpleVectorExp
 }
