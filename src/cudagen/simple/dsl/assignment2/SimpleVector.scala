@@ -14,7 +14,8 @@ import my.delite.framework.codegen.scala.MyTargetScala
 import my.delite.framework.codegen.cuda.MyTargetCuda
 import ppl.delite.framework.ops._
 import ppl.delite.framework.datastructures._
-import ppl.delite.framework.codegen.delite.overrides._
+//import ppl.delite.framework.codegen.delite.overrides._
+import my.delite.framework.codegen.delite.overrides._
 import scala.virtualization.lms.internal.GenericFatCodegen
 
 /**

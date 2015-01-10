@@ -6,8 +6,9 @@ import scala.reflect.SourceContext
 import scala.virtualization.lms.internal._
 import scala.virtualization.lms.common._
 
-import ppl.delite.framework.codegen.delite.generators.{DeliteGenTaskGraph}
-import ppl.delite.framework.codegen.delite.overrides.{DeliteScalaGenVariables, DeliteCudaGenVariables, DeliteAllOverridesExp}
+//import ppl.delite.framework.codegen.delite.generators.{DeliteGenTaskGraph}
+import my.delite.framework.codegen.delite.generators.{DeliteGenTaskGraph}
+import my.delite.framework.codegen.delite.overrides.{DeliteScalaGenVariables, DeliteCudaGenVariables, DeliteAllOverridesExp}
 //import ppl.delite.framework.{Config, DeliteApplication}
 import ppl.delite.framework.transform.ForwardPassTransformer
 import ppl.delite.framework.ops.DeliteOpsExp
@@ -20,8 +21,9 @@ import ppl.delite.framework.{Config}
 import my.delite.framework.{MyDeliteApplication}
 import ppl.delite.framework.ops.DeliteOpsExp
 import ppl.delite.framework.analysis.StencilAnalysis
-import ppl.delite.framework.codegen.delite.generators.{DeliteGenTaskGraph}
-import ppl.delite.framework.codegen.delite.overrides.{DeliteScalaGenVariables, DeliteCudaGenVariables, DeliteAllOverridesExp}
+//import ppl.delite.framework.codegen.delite.generators.{DeliteGenTaskGraph}
+import my.delite.framework.codegen.delite.generators.{DeliteGenTaskGraph}
+import my.delite.framework.codegen.delite.overrides.{DeliteScalaGenVariables, DeliteCudaGenVariables, DeliteAllOverridesExp}
 
 // FIXME: now that syms and friends is in the IR, all this ifGenAgree(..) crap is not necessary.
 
@@ -55,7 +57,8 @@ trait MyDeliteCodegen extends GenericFatCodegen with BaseGenStaticData with ppl.
     //generators foreach { _.shallow = shallow }
     val result = generators map f
     if (result.distinct.length != 1){
-      sys.error("DeliteCodegen: generators disagree")
+      //sys.error("DeliteCodegen: generators disagree: result.distinct.length: " + result.distinct.length + " result.distinct: " + result.distinct)
+      println("DeliteCodegen: generators disagree: result.distinct.length: " + result.distinct.length + " result.distinct: " + result.distinct)
     }
     //for (i <- 0 until generators.length) {
     //  generators(i).shallow = save(i)
