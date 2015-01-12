@@ -116,7 +116,8 @@ trait SimpleVectorCodegenScala extends SimpleVectorCodegenBase with SimpleVector
 // emitStructDeclaration
 
 trait SimpleVectorCodegenCuda extends SimpleVectorCodegenBase with SimpleVectorCudaCodeGenPkg
-  with CudaGenDeliteOps /*with DeliteCudaGenAllOverrides*/ {
+  //with CudaGenDeliteOps /**/with DeliteCudaGenAllOverrides/**/ {
+  with CudaGenDeliteOps with CudaGenDeliteStruct with CudaGenDeliteArrayOps /*with CudaGenDSArrayOps*/ with DeliteCudaGenAllOverrides with DeliteCppHostTransfer with DeliteCudaDeviceTransfer {
 
   val IR: MyDeliteApplication with SimpleVectorExp
 }
