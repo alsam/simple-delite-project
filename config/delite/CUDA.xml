@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="ivy-report.xsl"?>
-<ivy-report>
-<compiler>/usr/local/cuda/bin/nvcc</compiler>
-<arch>3.0</arch>
-<path> ${JAVA_HOME}/bin </path>
-<path> ${JAVA_HOME}/include </path>
-</ivy-report>
+<DeliteExternalLib>
+<compiler> /usr/local/cuda/bin/nvcc </compiler> <!-- path to nvcc -->
+<arch> 3.5 </arch> <!-- compute capability of gpu -->
+<headers>
+  <prefix> -I </prefix>
+  <path> /usr/lib/jvm/java-7-oracle/include </path> <!-- required for JNI -->
+  <path> /usr/lib/jvm/java-7-oracle/include/linux </path>
+</headers>
+</DeliteExternalLib>
