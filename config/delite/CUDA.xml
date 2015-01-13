@@ -1,6 +1,7 @@
 <DeliteExternalLib>
 <compiler> /usr/local/cuda/bin/nvcc </compiler> <!-- path to nvcc -->
 <arch> 3.5 </arch> <!-- compute capability of gpu -->
+<make> /usr/bin/make -s -j </make>
 <headers>
   <prefix> -I </prefix>
   <path> /usr/lib/jvm/java-7-oracle/include </path> <!-- required for JNI -->
