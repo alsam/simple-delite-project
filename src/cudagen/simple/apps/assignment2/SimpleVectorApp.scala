@@ -4,13 +4,14 @@ import ppl.dsl.assignment2.{SimpleVectorApplicationRunner, SimpleVectorApplicati
 import ppl.delite.runtime._
 
 object SimpleVectorAppRunner extends SimpleVectorApplicationRunner with SimpleVectorApp {
-  reifyEffects {
-    //args = Array("out.deg")
-    main()
-    //execute(scala.Array("out.deg"))
-    Config.numCuda = 1
+  //reifyEffects {
+  //  //args = Array("out.deg")
+  //  System.out.println("-D- printme")
+  //  main()
+  //  //execute(scala.Array("out.deg"))
+    Config.numCuda = 0
     Delite.embeddedMain(scala.Array("out.deg", "42"), staticDataMap)
-  }
+  //}
 }
 
 trait SimpleVectorApp extends SimpleVectorApplication {

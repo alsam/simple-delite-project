@@ -12,6 +12,8 @@ import ppl.delite.framework.datastructures._
 import ppl.delite.framework.codegen.delite.overrides._
 import scala.virtualization.lms.internal.GenericFatCodegen
 
+import ppl.dsl.wrap_delite._
+
 /**
  * Packages
  */
@@ -71,9 +73,12 @@ trait SimpleVectorExp extends SimpleVectorCompiler with SimpleVectorScalaOpsPkgE
   this: DeliteApplication with SimpleVectorApplication =>
 
   def getCodeGenPkg(t: Target{val IR: SimpleVectorExp.this.type}) : GenericFatCodegen{val IR: SimpleVectorExp.this.type} = {
+    System.out.println("-D- SimpleVectorExp.getCodeGenPkg before match")
     t match {
       case _:TargetScala => new SimpleVectorCodegenScala{val IR: SimpleVectorExp.this.type = SimpleVectorExp.this}
-      case _:TargetCuda => new SimpleVectorCodegenCuda{val IR: SimpleVectorExp.this.type = SimpleVectorExp.this}
+      case _:TargetCuda => 
+        System.out.println("-D- SimpleVectorExp.getCodeGenPkg TargetCuda case")
+        new SimpleVectorCodegenCuda{val IR: SimpleVectorExp.this.type = SimpleVectorExp.this}
       case _ => throw new RuntimeException("simple vector does not support this target")
     }
   }
@@ -111,10 +116,11 @@ trait SimpleVectorCodegenScala extends SimpleVectorCodegenBase with SimpleVector
 
 trait SimpleVectorCodegenCuda extends SimpleVectorCodegenBase with SimpleVectorCudaCodeGenPkg
   //with CudaGenDeliteOps /**/with DeliteCudaGenAllOverrides/**/ {
-  with CudaGenDeliteOps with CudaGenDeliteStruct with CudaGenDeliteArrayOps /*with CudaGenDSArrayOps*/ with DeliteCudaGenAllOverrides with DeliteCppHostTransfer with DeliteCudaDeviceTransfer {
+  with CudaGenDeliteOps with CudaGenDeliteStruct with MyCudaGenDeliteArrayOps /*with CudaGenDSArrayOps*/ with DeliteCudaGenAllOverrides with DeliteCppHostTransfer with DeliteCudaDeviceTransfer {
   //with CudaGenDeliteOps /*with CudaGenDeliteStruct*/ with CudaGenDeliteArrayOps /*with CudaGenDSArrayOps with DeliteCudaGenAllOverrides with DeliteCppHostTransfer with DeliteCudaDeviceTransfer*/ {
 
   val IR: DeliteApplication with SimpleVectorExp
+
 }
 
 trait SimpleVectorCodegenC extends SimpleVectorCodegenBase with SimpleVectorCCodeGenPkg
