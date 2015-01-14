@@ -10,12 +10,13 @@ object SimpleVectorAppRunner extends SimpleVectorApplicationRunner with SimpleVe
   //  main()
   //  //execute(scala.Array("out.deg"))
     Config.numCuda = 0
-    Delite.embeddedMain(scala.Array("out.deg", "42"), staticDataMap)
+    //Delite.embeddedMain(scala.Array("out.deg", "42"), staticDataMap)
   //}
 }
 
 trait SimpleVectorApp extends SimpleVectorApplication {
 
+  //ppl.delite.framework.Config.debug = true
   ppl.delite.framework.Config.generateCUDA = true
 
   def main() {

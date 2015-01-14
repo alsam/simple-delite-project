@@ -18,9 +18,22 @@ trait MyCudaGenDeliteArrayOps extends CudaGenDeliteArrayOps {
 
   override def emitNode(sym: Sym[Any], rhs: Def[Any]) = {
     System.out.println("-D- called MyCudaGenDeliteArrayOps.emitNode")
-    System.out.println("-D- now call CudaGenDeliteArrayOps.emitNode")
+    System.out.println("-D- now call from super:  ??CudaGenDeliteArrayOps.emitNode")
+    System.out.println("-D- now call from super: " + this.getClass.getName + " ??CudaGenDeliteArrayOps.emitNode")
+    System.out.println("-D- sym.pos: " + sym.pos + " sym: " + sym.toString + " rhs: " + rhs.toString)
+    //assert(false)
 
     super.emitNode(sym, rhs)
+  }
+
+  override def emitBlock(y: Block[Any]): Unit = {
+    System.out.println("-D- called MyCudaGenDeliteArrayOps.emitBlock y: " + y.toString)
+    super.emitBlock(y)
+  }
+
+  override def traverseStm(stm: Stm) = {
+    System.out.println("-D- called MyCudaGenDeliteArrayOps.traverseStm stm: " + stm.toString)
+    super.traverseStm(stm)
   }
 
   override def initializeGenerator(buildDir:String, args: Array[String]): Unit = {
@@ -37,6 +50,35 @@ trait MyCudaGenDeliteArrayOps extends CudaGenDeliteArrayOps {
     System.out.println("-D- now call CudaCodegen.emitSource")
 
     super.emitSource(args, body, className, out)
+  }
+
+  override def emitKernelHeader(syms: List[Sym[Any]], vals: List[Sym[Any]], vars: List[Sym[Any]], resultType: String, resultIsVar: Boolean, external: Boolean): Unit = {
+    System.out.println("-D- called MyCudaGenDeliteArrayOps.emitKernelHeader syms: " + syms.toString + " vals: " + vals.toString)
+    super.emitKernelHeader(syms, vals, vars, resultType, resultIsVar, external)
+  }
+
+  override def emitKernelFooter(syms: List[Sym[Any]], vals: List[Sym[Any]], vars: List[Sym[Any]], resultType: String, resultIsVar: Boolean, external: Boolean): Unit = {
+    System.out.println("-D- called MyCudaGenDeliteArrayOps.emitKernelFooter syms: " + syms.toString + " vals: " + vals.toString)
+    super.emitKernelFooter(syms, vals, vars, resultType, resultIsVar, external)
+  }
+
+  // Initializer
+  //def finalizeGenerator(): Unit = {}
+
+  override def kernelInit(syms: List[Sym[Any]], vals: List[Sym[Any]], vars: List[Sym[Any]], resultIsVar: Boolean): Unit = {
+    System.out.println("-D- called MyCudaGenDeliteArrayOps.kernelInit syms: " + syms.toString + " vals: " + vals.toString)
+    super.kernelInit(syms, vals, vars, resultIsVar)
+  }
+
+
+}
+
+trait MyCudaGenDeliteOps extends CudaGenDeliteOps {
+  import IR._
+
+  override def emitFatNode(symList: List[Sym[Any]], rhs: FatDef) = {
+    System.out.println("-D- called MyCudaGenDeliteOps.emitFatNode symList: " + symList.toString + " rhs: " + rhs.toString)
+    super.emitFatNode(symList, rhs)
   }
 
 }
