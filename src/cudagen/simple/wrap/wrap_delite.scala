@@ -81,4 +81,45 @@ trait MyCudaGenDeliteOps extends CudaGenDeliteOps {
     super.emitFatNode(symList, rhs)
   }
 
+  override def emitInlineAbstractFatLoop(op: AbstractFatLoop, symList: List[Sym[Any]]) {
+    System.out.println("-D- called MyCudaGenDeliteOps.emitInlineAbstractFatLoop op: " + op.toString + " symList: " + symList.toString)
+    super.emitInlineAbstractFatLoop(op, symList)
+  }
+
+  override def emitMultiLoopFuncs(op: AbstractFatLoop, symList: List[Sym[Any]]) {
+    System.out.println("-D- called MyCudaGenDeliteOps.emitMultiLoopFuncs op: " + op.toString + " symList: " + symList.toString)
+    super.emitMultiLoopFuncs(op, symList)
+  }
+
+  override def emitReduceElem(op: AbstractFatLoop, sym: Sym[Any], elem: DeliteReduceElem[_], prefixSym: String = "") {
+    System.out.println("-D- called MyCudaGenDeliteOps.emitReduceElem op: " + op.toString + " sym: " + sym.toString + " elem: " + elem.toString)
+    super.emitReduceElem(op, sym, elem, prefixSym)
+  }
+
+  override def emitReduceTupleElem(op: AbstractFatLoop, sym: Sym[Any], elem: DeliteReduceTupleElem[_,_], prefixSym: String = "") {
+    System.out.println("-D- called MyCudaGenDeliteOps.emitReduceTupleElem op: " + op.toString + " sym: " + sym.toString + " elem: " + elem.toString)
+    super.emitReduceTupleElem(op, sym, elem, prefixSym)
+  }
+
+  override def emitReduction(op: AbstractFatLoop, sym: Sym[Any], elem: DeliteReduceElem[_], prefixSym: String = "") {
+    System.out.println("-D- called MyCudaGenDeliteOps.emitReduction op: " + op.toString + " sym: " + sym.toString + " elem: " + elem.toString)
+    super.emitReduction(op, sym, elem, prefixSym)
+  }
+
+
+  override def emitProcessMethods(op: AbstractFatLoop, symList: List[Sym[Any]]): Unit = {
+    System.out.println("-D- called MyCudaGenDeliteOps.emitProcessMethods op: " + op.toString + " symList: " + symList.toString)
+    super.emitProcessMethods(op, symList)
+  }
+
+  override def emitKernelAbstractFatLoop(op: AbstractFatLoop, symList: List[Sym[Any]]) {
+    System.out.println("-D- called MyCudaGenDeliteOps.emitKernelAbstractFatLoop op: " + op.toString + " symList: " + symList.toString)
+    super.emitKernelAbstractFatLoop(op, symList)
+  }
+
+  override def emitMultiLoopFunc(func:Block[Any], postfix: String, lastInputs: List[Sym[Any]], stream:PrintWriter): List[String] = {
+    System.out.println("-D- called MyCudaGenDeliteOps.emitMultiLoopFunc func: " + func.toString + " postfix: " + postfix.toString)
+    super.emitMultiLoopFunc(func, postfix, lastInputs, stream)
+  }
+
 }
