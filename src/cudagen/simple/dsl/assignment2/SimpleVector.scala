@@ -7,6 +7,8 @@ import scala.tools.nsc.io._
 import ppl.delite.framework.codegen.Target
 import ppl.delite.framework.codegen.scala.TargetScala
 import ppl.delite.framework.codegen.cuda.TargetCuda
+import ppl.delite.framework.codegen.cpp.TargetCpp
+import ppl.delite.framework.codegen.opencl.TargetOpenCL
 import ppl.delite.framework.ops._
 import ppl.delite.framework.datastructures._
 import ppl.delite.framework.codegen.delite.overrides._
@@ -79,7 +81,9 @@ trait SimpleVectorExp extends SimpleVectorCompiler with SimpleVectorScalaOpsPkgE
       case _:TargetCuda => 
         System.out.println("-D- SimpleVectorExp.getCodeGenPkg TargetCuda case")
         new SimpleVectorCodegenCuda{val IR: SimpleVectorExp.this.type = SimpleVectorExp.this}
-      case _ => throw new RuntimeException("simple vector does not support this target")
+      //case _:TargetOpenCL => new MyTestDSLCodeGenOpenCL{val IR: MyTestDSLExp.this.type = MyTestDSLExp.this}
+      case _:TargetCpp => new SimpleVectorCodegenC{val IR: SimpleVectorExp.this.type = SimpleVectorExp.this} 
+      case _ => new SimpleVectorCodegenScala{val IR: SimpleVectorExp.this.type = SimpleVectorExp.this} //throw new RuntimeException("simple vector does not support this target: t:" + t.toString)
     }
   }
 }
@@ -123,8 +127,15 @@ trait SimpleVectorCodegenCuda extends SimpleVectorCodegenBase with SimpleVectorC
 
 }
 
-trait SimpleVectorCodegenC extends SimpleVectorCodegenBase with SimpleVectorCCodeGenPkg
+trait SimpleVectorCodegenC extends SimpleVectorCodegenBase with CGenDeliteStruct with CGenDeliteArrayOps with SimpleVectorCCodeGenPkg
   with CGenDeliteOps with DeliteCGenAllOverrides {
 
   val IR: DeliteApplication with SimpleVectorExp
+
+  //override def initializeGenerator(buildDir:String, args: Array[String]): Unit = {}
+
+  //override def finalizeGenerator(): Unit = {}
+
+  //override def emitDataStructures(path: String): Unit = {}
+
 }
