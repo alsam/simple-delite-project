@@ -53,7 +53,7 @@ class TestSuite extends DeliteSuite {
     val emitters = List(scala_emitter, cuda_emitter, cpp_emitter)
     //val emitters = List(scala_emitter, cuda_emitter)
     lazy val deliteGenerator = new DeliteCodeGenPkg { val IR: runner.type = runner; val generators = emitters; }
-    val prefix = "gentd"
+    val prefix = "generated"
     val sep = java.io.File.separator
     val args = Array("out.deg", "42")
     def writeModules(baseDir: String) {
